@@ -5,7 +5,7 @@ use WORK.SYSTEM_PARAMETERS.ALL;
 
 entity UART_Receiver is
     generic (
-        BAUD_RATE : natural := 115_200
+        BAUD_RATE : natural
     );
     port (
         Clk         : in std_logic;                         -- System clock
