@@ -39,4 +39,7 @@ package System_Parameters is
     constant LB_ADR_BUS_WIDTH   : natural := integer(ceil(log2(real(FRAME_WIDTH - 1))));
     constant FB_ADR_BUS_WIDTH   : natural := integer(ceil(log2(real(FRAME_PIXELS - 1))));
     
+-- Serial Comms
+    constant BAUD_RATE  : natural := 115_200;   -- Baud rate of the UART transceiver
+    
 end package;

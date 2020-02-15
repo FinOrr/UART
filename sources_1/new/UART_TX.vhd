@@ -6,7 +6,7 @@ use WORK.SYSTEM_PARAMETERS.ALL;
 
 entity UART_Transmitter is
     generic (
-        BAUD_RATE : natural := 115_200
+        BAUD_RATE : natural
     );
     port (
         Clk         : in std_logic;                     -- System clock input
@@ -37,7 +37,7 @@ architecture Behavioral of UART_Transmitter is
     
 begin
 
-    o_TX_Finish <= TX_Finish;       -- Connect Finish signal to output port
+    --o_TX_Finish <= TX_Finish;       -- Connect Finish signal to output port
 
     TX: process(Clk)
     begin
@@ -88,7 +88,7 @@ begin
                 when STOP_BIT =>
                     o_TX_Serial <= '1';                         -- Pull line high to signal for stop bit        
                     if (Clk_Counter = CLKS_PER_BIT - 1) then    -- If one UART clock period has passed
-                        TX_Finish <= '1';                       -- Signal the transmission has ended
+                        o_TX_Finish <= '1';                     -- Signal the transmission has ended
                         Clk_Counter <= 0;                       -- Reset the clock counter
                         STATE <= RESET;                         -- Move to reset state
                     else                                        -- If less than 1 UART clock period since started sending STOP_BIT
