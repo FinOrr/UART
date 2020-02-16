@@ -77,7 +77,6 @@ architecture Behavioral of Top_Level is
     signal TX_Active    : std_logic := '0';
     signal TX_Finish    : std_logic := '0';
     signal LED_Flag     : std_logic := '0';
-    signal GEN_Flag     : std_logic := '0';
     signal CE_1Hz       : std_logic := '0';
     
 begin
@@ -120,23 +119,15 @@ begin
     Detector: process(Clk_100MHZ)
     begin
         if rising_edge(Clk_100MHZ) then
-            if (RX_Finish = '1' AND RX_Byte = "11101101") then
-                --LED_Flag <= NOT LED_Flag;
-                TX_Byte <= "00110011";
+            if (RX_Finish = '1' AND RX_Byte = "01001111") then
+                LED_Flag <= NOT LED_Flag;
+                TX_Byte <= "01001011";
                 TX_Ready <= '1';
             else
                 TX_Byte <= (others => '0');
                 TX_Ready <= '0';
             end if;
-            
-            if (CE_1Hz = '1') then
-                TX_Byte <= "00110011";
-                TX_Ready <= '1';
-                LED_Flag <= not LED_Flag;
-            else
-                TX_Ready <= '0';
-            end if;
-            
+                       
         end if;
     end process;
     
